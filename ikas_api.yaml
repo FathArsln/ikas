@@ -1,0 +1,52 @@
+openapi: 3.0.0
+info:
+  title: Ikas API
+  description: API for Ikas e-commerce platform
+  version: 1.0.0
+servers:
+  - url: https://api.ikas.com
+paths:
+  /v2/orders:
+    get:
+      summary: Get orders by customer details
+      parameters:
+        - name: customer_email
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: customer_phone
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: customer_name
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        order_number:
+                          type: string
+                        status:
+                          type: string
+                        tracking_number:
+                          type: string
+        '400':
+          description: Bad request
+        '404':
+          description: Orders not found
+        '500':
+          description: Internal server error
